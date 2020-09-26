@@ -16,6 +16,11 @@ Rails.application.routes.draw do
       post 'posts/new', to: 'posts#create'
       delete 'posts/:id', to: 'posts#destroy'
 
+      ##comments routes
+      get 'comments/post/:id', to: 'comments#post_comments'
+      post 'comments/new/post/:id', to: 'comments#create'
+      delete 'comments/:id', to: 'comments#destroy' 
+
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
