@@ -10,6 +10,12 @@ Rails.application.routes.draw do
       get 'users/profile', to: 'users#profile'
       delete 'users/:id', to: 'users#destroy'
 
+      ##post routes
+      get 'posts', to: 'posts#all_posts'
+      get 'posts/:id', to: 'posts#show'
+      post 'posts/new', to: 'posts#create'
+      delete 'posts/:id', to: 'posts#destroy'
+
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
