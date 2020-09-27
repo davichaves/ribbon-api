@@ -9,9 +9,9 @@ class Api::V1::PostsController < ApplicationController
     render json: @posts
   end
 
-  # GET /posts/1
+  # GET /posts/:id
   def show
-    render json: @post
+    render json: { post: @post, likes: PostLike.where(post_id: @post.id) }
   end
 
   # POST /posts/new
@@ -26,16 +26,16 @@ class Api::V1::PostsController < ApplicationController
     end
   end
 
-  # DELETE /posts/1
+  # DELETE /posts/:id
   def destroy
     @post.destroy
   end
 
   # POST /posts/:id/like
   def like
-    @post_like = PostLike.where(user_id: @user.id, post_id: @post.id)
+    @post_like = PostLike.find_by(user_id: @user.id, post_id: @post.id)
     if @post_like
-      @post_like.destroy
+      PostLike.destroy_by(id: @post_like.id)
     else
       @post_like = PostLike.new
       @post_like.user = @user

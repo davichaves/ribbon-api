@@ -20,8 +20,11 @@ Rails.application.routes.draw do
 
       ##comments routes
       get 'comments/post/:id', to: 'comments#post_comments'
+      get 'comments/:id', to: 'comments#show'
       post 'comments/new/post/:id', to: 'comments#create'
       delete 'comments/:id', to: 'comments#destroy'
+
+      post 'comments/:id/like', to: 'comments#like'
 
     end
   end
