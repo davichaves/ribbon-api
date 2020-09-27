@@ -1,6 +1,6 @@
 class Api::V1::PostsController < ApplicationController
-  before_action :set_post, only: [:show, :destroy]
-  before_action :authorize_request, only: [:create, :update]
+  before_action :set_post, only: [:show, :destroy, :like]
+  before_action :authorize_request, only: [:create, :update, :like]
 
   # GET /posts
   def all_posts
@@ -29,6 +29,23 @@ class Api::V1::PostsController < ApplicationController
   # DELETE /posts/1
   def destroy
     @post.destroy
+  end
+
+  # POST /posts/:id/like
+  def like
+    @post_like = PostLike.where(user_id: @user.id, post_id: @post.id)
+    if @post_like
+      @post_like.destroy
+    else
+      @post_like = PostLike.new
+      @post_like.user = @user
+      @post_like.post = @post
+      if @post_like.save
+        render json: @post_like, status: :created
+      else
+        render json: @post_like.errors, status: :unprocessable_entity
+      end
+    end
   end
 
   private

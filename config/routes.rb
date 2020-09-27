@@ -16,10 +16,12 @@ Rails.application.routes.draw do
       post 'posts/new', to: 'posts#create'
       delete 'posts/:id', to: 'posts#destroy'
 
+      post 'posts/:id/like', to: 'posts#like'
+
       ##comments routes
       get 'comments/post/:id', to: 'comments#post_comments'
       post 'comments/new/post/:id', to: 'comments#create'
-      delete 'comments/:id', to: 'comments#destroy' 
+      delete 'comments/:id', to: 'comments#destroy'
 
     end
   end
