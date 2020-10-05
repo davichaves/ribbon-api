@@ -5,14 +5,14 @@ class Api::V1::CommentsController < ApplicationController
 
   # GET /comments/post/:id
   def post_comments
-    @comments = Comment.all
+    @comments = Comment.where(post_id: @post.id)
 
-    render json: @comments
+    render json: @comments.as_json(include: :user)
   end
 
   # GET /comments/:id
   def show
-    render json: { post: @comment, likes: CommentLike.where(comment_id: @comment.id) }
+    render json: { comment: @comment, likes: CommentLike.where(comment_id: @comment.id) }
   end
 
   # POST /comments/new/post/:id
